@@ -1,0 +1,55 @@
+valkey-cluster:
+  enabled: false
+valkey:
+  enabled: true
+postgresql:
+  enabled: true
+postgresql-ha:
+  enabled: false
+
+persistence:
+  enabled: true
+
+gitea:
+  config:
+    database:
+      DB_TYPE: postgres
+    indexer:
+      ISSUE_INDEXER_TYPE: bleve
+      REPO_INDEXER_ENABLED: true
+  admin:
+    username: "admin"
+    password: "change_me_password"
+    email: "azurpourpre@proton.me"
+  additionalConfigFromEnvs:
+    - name: GITEA__webhook__ALLOWED_HOST_LIST
+      value: "mkdoc-service.docs.svc.cluster.local"
+    - name: GITEA__webhook__SKIP_TLS_VERIFY
+      value: "true"
+
+service:
+  http:
+    type: LoadBalancer
+    port: 80
+    clusterIP:
+    annotations:
+      metallb.universe.tf/allow-shared-ip: "gitea"
+  ssh:
+    type: LoadBalancer
+    port: 22
+    clusterIP:
+    annotations:
+      metallb.universe.tf/allow-shared-ip: "gitea"
+ingress:
+  enabled: true
+  className: "nginx"
+  annotations: 
+    cert-manager.io/cluster-issuer: "vault-issuer"
+    cert-manager.io/common-name: "gitea.hk.home"
+    nginx.ingress.kubernetes.io/proxy-body-size: 100m
+  tls:
+    - hosts:
+      - git.hk.home
+      secretName: gitea-cert
+  hosts:
+    - host: git.hk.home

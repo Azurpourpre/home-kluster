@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: cd-trusted-pgp
+  namespace: default
+type: Opaque
+data:
+  azurpourpre.asc: LS0tLS1CRUdJTiBQR1AgUFVCTElDIEtFWSBCTE9DSy0tLS0tCgptRE1FYVZVOHd4WUpLd1lCQkFIYVJ3OEJBUWRBS2lJcU1EbTJjV2JUTTRITFQzWHFjS3BtQlprQkUvci9DS1lMClJsSkI3QTIwSTJGNmRYSndiM1Z5Y0hKbElEeGhlblZ5Y0c5MWNuQnlaVUJ3Y205MGIyNHViV1UraUpBRUV4WUsKQURnQ0d3TUZDd2tJQndJR0ZRb0pDQXNDQkJZQ0F3RUNIZ0VDRjRBV0lRVEFHcUFlQzhwUStRajdvQk13VmhiSwpMeCs1TXdVQ2FWVS93d0FLQ1JBd1ZoYktMeCs1TTE5RUFQOXVvY3N3cVdBd0I4TVZOWWFlQkgxS1VRYjJYak52CjduMmtzZTdDUU1tREp3RDlHL1RSU0xDRk1BdEhsZFArbHNjYnJGVHBWUDZkdEx1QStGRmNJNVBFY0EyNE9BUnAKVlR6REVnb3JCZ0VFQVpkVkFRVUJBUWRBTFR1T3hzbGdkTWpmU1pucWJJODRPMG05Wi9pVGN0Nlk0Z3JaSGtzOAp4MTBEQVFnSGlIZ0VHQllLQUNBQ0d3d1dJUVRBR3FBZUM4cFErUWo3b0JNd1ZoYktMeCs1TXdVQ2FWVS9lZ0FLCkNSQXdWaGJLTHgrNU16TXJBUURRVnNaZ05TUjJxdk5EaEVrR0RURnZEMXhOK3ptdnZ5czl2NnVGK0VZWTBBRUEKbHAzUW5VT0tLdlRpK292UnNoa3kxaSt3YjlPdVpnZXo3dlNQNmhNYWl3dz0KPVlua0kKLS0tLS1FTkQgUEdQIFBVQkxJQyBLRVkgQkxPQ0stLS0tLQo=
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: remote-git
+  namespace: default
+spec:
+  interval: 4h
+  url: <github repo url>
+  provider: generic
+  ref:
+    branch: master
+  verify:
+    mode: HEAD
+    secretRef:
+      name: cd-trusted-pgp
+  sparseCheckout:
+  - cd
+  - misc
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: home-kluster
+  namespace: default
+spec:
+  interval: 12h
+  sourceRef:
+    kind: GitRepository
+    name: remote-git
+  path: cd
+  prune: true

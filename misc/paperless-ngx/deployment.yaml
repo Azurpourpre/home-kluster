@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webserver-dep
+  namespace: paperless
+  labels:
+    app: paperless
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: paperless
+  template:
+    metadata:
+      labels:
+        app: paperless
+    spec:
+      containers:
+      - name: webserver
+        image: ghcr.io/paperless-ngx/paperless-ngx:latest
+        ports:
+        - containerPort: 8000
+        envFrom:
+          - configMapRef:
+              name: paperless-config
+        volumeMounts:
+        - mountPath: /media
+          name: input-store
+        - mountPath: /static
+          name: paperless-pvc
+        - mountPath: /consume
+          name: paperless-documents
+      volumes:
+      - name: input-store
+        nfs:
+          server: nas.home
+          path: /backup
+          readOnly: true
+      - name: paperless-pvc
+        persistentVolumeClaim:
+          claimName: paperless-pvc
+      - name: paperless-documents
+        persistentVolumeClaim:
+          claimName: paperless-documents

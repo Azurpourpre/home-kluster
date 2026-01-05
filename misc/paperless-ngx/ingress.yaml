@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: paperless-ing
+  namespace: paperless
+  annotations:
+    cert-manager.io/cluster-issuer: "vault-issuer"
+    cert-manager.io/common-name: "paperless.hk.home"
+
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+      - paperless.hk.home
+      secretName: paperless-cert
+  rules:
+    - host: paperless.hk.home
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: paperless-frontend
+                port:
+                  number: 80

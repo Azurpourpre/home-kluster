@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: mealie
+  namespace: mealie
+  annotations:
+    cert-manager.io/cluster-issuer: "vault-issuer"
+    cert-manager.io/common-name: "chef.hk.home"
+
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+      - chef.hk.home
+      secretName: mealie-cert
+  rules:
+    - host: chef.hk.home
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: mealie
+                port:
+                  number: 80

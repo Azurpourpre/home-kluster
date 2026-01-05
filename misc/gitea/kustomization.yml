@@ -1,0 +1,5 @@
+namespace: gitea
+configMapGenerator:
+  - name: gitea-values
+    files: 
+    - values.yaml

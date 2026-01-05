@@ -1,0 +1,20 @@
+app:
+  mail:
+    enabled: false
+  persistance:
+    enabled: true
+    existingClaim:
+      enabled: false
+    storageClass: longhorn
+    size: 3Gi
+
+celery:
+  enabled: false
+
+ingress:
+  enabled: true
+  ingressClassName: nginx
+  url: "fit.hk.home"
+  annotations:
+    cert-manager.io/cluster-issuer: "vault-issuer"
+    cert-manager.io/common-name: "fit.hk.home"

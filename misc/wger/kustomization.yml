@@ -1,0 +1,5 @@
+namespace: wger
+configMapGenerator:
+  - name: wger-values
+    files: 
+    - values.yaml

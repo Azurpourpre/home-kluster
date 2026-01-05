@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: baikal
+  namespace: baikal
+  annotations:
+    cert-manager.io/cluster-issuer: "vault-issuer"
+    cert-manager.io/common-name: "calendar.hk.home"
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+      - calendar.hk.home
+      secretName: baikal-cert
+  rules:
+    - host: calendar.hk.home
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: baikal
+                port:
+                  number: 80

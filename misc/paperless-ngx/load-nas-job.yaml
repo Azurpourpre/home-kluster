@@ -1,0 +1,37 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: sync-documents
+  namespace: paperless
+spec:
+  schedule: "0 0 * * 0"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+          containers:
+          - name: sync
+            image: busybox:1.28
+            imagePullPolicy: IfNotPresent
+            command: ["/bin/sh", "-c", "--"]
+            args:
+              - cp -r /nas/administratif /docs;
+              - unzip /backup/cours-mention-cyber.zip -d /docs/cours;
+            volumeMounts:
+              - mountPath: /nas
+                name: nas
+              - mountPath: /docs
+                name: documents-dst
+          volumes:
+          - name: nas
+            nfs:
+              server: nas.home
+              path: /backup
+              readOnly: false
+          - name: documents-dst
+            persistentVolumeClaim:
+              claimName: paperless-documents
+          restartPolicy: OnFailure

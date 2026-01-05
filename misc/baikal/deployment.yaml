@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: baikal
+  namespace: baikal
+  labels:
+    app: baikal
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: baikal
+  template:
+    metadata:
+      labels:
+        app: baikal
+    spec:
+      volumes:
+      - name: config-vol
+        persistentVolumeClaim:
+          claimName: baikal-config-pvc
+      - name: data-vol
+        persistentVolumeClaim:
+          claimName: baikal-specific-pvc
+      containers:
+      - name: baikal
+        image: ckulka/baikal:nginx
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: data-vol
+          readOnly: false
+          mountPath: "/var/www/baikal/Specific"
+        - name: config-vol
+          readOnly: false
+          mountPath: "/var/www/baikal/config"
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 65534
+          readOnlyRootFilesystem: true
