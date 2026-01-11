@@ -1,1 +1,5 @@
 misc/secrets
+misc/cilium-init.yaml
+secrets.yaml
+talosconfig
+nodes/

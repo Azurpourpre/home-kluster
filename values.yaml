@@ -1,0 +1,9 @@
+endpoint: "https://kube.home:6443"
+podSubnets:
+- 10.244.0.0/16
+serviceSubnets:
+- 10.96.0.0/16
+advertisedSubnets:
+- 192.168.1.8/29
+certSANs: []
+GitRepo: "https://raw.githubusercontent.com/Azurpourpre/home-kluster/refs/heads/master"
