@@ -55,7 +55,6 @@ cluster:
   proxy:
     disabled: true
   extraManifests:
-  - "{{ .Values.GitRepo }}/misc/cilium-init.yaml"
   - "https://github.com/fluxcd/flux2/releases/latest/download/install.yaml"
   - "{{ .Values.GitRepo }}/misc/cd-init.yaml"
   {{- end }}

@@ -6,4 +6,4 @@ customization:
       - siderolabs/util-linux-tools
 
 # To get the schematic id:
-# curl -X POST --data-binary @schematic.yaml https://factory.talos.dev/schematics
+# curl -X POST --data-binary @talos-schematic.yaml https://factory.talos.dev/schematics

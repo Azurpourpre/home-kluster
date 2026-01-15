@@ -14,7 +14,7 @@ metadata:
   namespace: default
 spec:
   interval: 4h
-  url: <github repo url>
+  url: https://github.com/Azurpourpre/home-kluster.git
   provider: generic
   ref:
     branch: master

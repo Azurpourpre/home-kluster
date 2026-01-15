@@ -5,7 +5,7 @@
 {{- else }}
 {{- $disk := "/dev/sda" }}
 {{- range (lookup "disks" "" "").items }}
-{{- if or .spec.wwid .spec.model }}
+{{- if and (or .spec.wwid .spec.model) (ne .spec.size 0) }}
 {{- $disk = .spec.dev_path }}
 {{- break }}
 {{- end }}
