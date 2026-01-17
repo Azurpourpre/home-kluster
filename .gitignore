@@ -2,4 +2,5 @@ misc/secrets
 misc/cilium-init.yaml
 secrets.yaml
 talosconfig
+kubeconfig
 nodes/
