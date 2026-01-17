@@ -31,6 +31,9 @@ machine:
         ip: {{ .Values.floatingIP }}
       {{- end }}
     {{- end }}
+  nodeLabels:
+    node.kubernetes.io/exclude-from-external-load-balancers:
+      $patch: delete
 
 cluster:
   network:
@@ -44,6 +47,7 @@ cluster:
   controlPlane:
     endpoint: "{{ .Values.endpoint }}"
   {{- if eq .MachineType "controlplane" }}
+  allowSchedulingOnControlPlanes: true
   apiServer:
     {{- with .Values.certSANs }}
     certSANs:
