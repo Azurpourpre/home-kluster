@@ -37,6 +37,11 @@ Then, finish initialization
 ``` bash
 talosctl --talosconfig=./talosconfig config endpoints <ip control plane>
 talosctl bootstrap --nodes <ip control plane> --talosconfig=./talosconfig
+helm install cilium cilium/cilium --version 1.18.0 --namespace kube-system -f https://raw.githubusercontent.com/Azurpourpre/home-kluster/refs/heads/master/misc/cilium/values.yaml
+```
+And insert secrets
+``` bash
+kubectl apply -f misc/secrets/*
 ```
 
 ## Contributing
