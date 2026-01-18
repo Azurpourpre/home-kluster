@@ -30,10 +30,10 @@ spec:
         - --pihole-api-version=6
         - --pihole-server=http://pihole.home
         - --pihole-tls-skip-verify # For now, we dont have a local CA
-        securityContext:
-          fsGroup: 65534
-          # runAsNonRoot: true
-          # runAsUser: 65534
-          # readOnlyRootFilesystem: true
-          # capabilities:
-          #   drop: ["ALL"]
+      securityContext:
+        fsGroup: 65534
+        runAsNonRoot: true
+        runAsUser: 65534
+        readOnlyRootFilesystem: true
+        capabilities:
+          drop: ["ALL"]
