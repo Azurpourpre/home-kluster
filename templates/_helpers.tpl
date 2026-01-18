@@ -147,3 +147,15 @@ busPath: {{ .spec.busPath }}
 {{ toYaml .spec | fromYaml | dig "machine" "network" "interfaces" (list) | toYaml }}
 {{- end }}
 {{- end }}
+
+{{- define "talm.discovered.schematic" }}
+{{- range (lookup "extensions" "" "").items }}
+{{- if eq .spec.metadata.name "schematic" }}
+{{- .spec.metadata.version }}
+{{- end }}
+{{- end }}
+{{- end }}
+
+{{- define "talm.discovered.talos_version" }}
+{{- (lookup "version" "" "").items._0.spec.version }}
+{{- end }}

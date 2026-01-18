@@ -12,6 +12,7 @@ machine:
   install:
     {{- (include "talm.discovered.disks_info" .) | nindent 4 }}
     disk: {{ include "talm.discovered.system_disk_name" . | quote }}
+    image: factory.talos.dev/metal-installer/{{ include "talm.discovered.schematic" . }}:{{ include "talm.discovered.talos_version" . }}
   network:
     hostname: {{ include "talm.discovered.hostname" . | quote }}
     nameservers: {{ include "talm.discovered.default_resolvers" . }}
@@ -62,4 +63,5 @@ cluster:
   - "https://github.com/fluxcd/flux2/releases/latest/download/install.yaml"
   - "{{ .Values.GitRepo }}/misc/cd-init.yaml"
   {{- end }}
+
 {{- end }}
