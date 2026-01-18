@@ -6,11 +6,11 @@ metadata:
 spec:
   vault:
     server: http://openbao.openbao:8200
-    path: pki/sign/cert-manager
+    path: pki/sign/hk-pki
     auth:
       kubernetes:
         mountPath: /v1/auth/kubernetes
-        role: issuer
+        role: cert-manager
         secretRef:
           name: issuer-token-lmzpj
           key: token
