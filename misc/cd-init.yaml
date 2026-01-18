@@ -17,7 +17,7 @@ spec:
   url: https://github.com/Azurpourpre/home-kluster.git
   provider: generic
   ref:
-    branch: master
+    branch: next
   verify:
     mode: HEAD
     secretRef:
