@@ -32,8 +32,3 @@ spec:
         - --pihole-tls-skip-verify # For now, we dont have a local CA
       securityContext:
         fsGroup: 65534
-        runAsNonRoot: true
-        runAsUser: 65534
-        readOnlyRootFilesystem: true
-        capabilities:
-          drop: ["ALL"]
