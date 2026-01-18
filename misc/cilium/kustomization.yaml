@@ -1,6 +1,6 @@
 namespace: gitea
 configMapGenerator:
-  - name: gitea-values
+  - name: cilium-values
     files: 
     - values.yaml
 generatorOptions:

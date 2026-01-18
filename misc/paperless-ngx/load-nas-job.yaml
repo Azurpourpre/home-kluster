@@ -2,7 +2,7 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: sync-documents
-  namespace: paperless
+  namespace: paperless-ngx
 spec:
   schedule: "0 0 * * 0"
   jobTemplate:

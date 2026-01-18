@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: webserver-dep
-  namespace: paperless
+  namespace: paperless-ngx
   labels:
     app: paperless
 spec:

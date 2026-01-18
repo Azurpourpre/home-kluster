@@ -6,13 +6,14 @@ metadata:
     name: cert-manager
 ---
 apiVersion: source.toolkit.fluxcd.io/v1
-kind: OCIRepository
+kind: HelmRepository
 metadata:
   name: cert-manager
   namespace: cert-manager
 spec:
+  type: "oci"
   interval: 12h
-  url: https://cert-manager.github.io/cert-manager
+  url: oci://quay.io/jetstack/charts/
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
@@ -20,17 +21,18 @@ metadata:
   name: cert-manager
   namespace: cert-manager
 spec:
-  chart:
-    spec:
+  interval: 12h
+  timeout: 5m
+  chart: 
+    spec: 
       chart: cert-manager
       reconcileStrategy: ChartVersion
       sourceRef:
         kind: HelmRepository
         name: cert-manager
-      values:
-        crds:
-          enabled: true
-  interval: 12h
+  values:
+    crds:
+      enabled: true
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -41,6 +43,7 @@ spec:
   interval: 12h
   sourceRef:
     kind: GitRepository
+    namespace: default
     name: remote-git
   path: "misc/cert-manager"
   prune: true

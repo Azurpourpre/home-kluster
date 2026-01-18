@@ -16,6 +16,7 @@ spec:
   interval: 4h
   sourceRef:
     kind: GitRepository
+    namespace: default
     name: remote-git
   path: "misc/cilium"
   prune: true

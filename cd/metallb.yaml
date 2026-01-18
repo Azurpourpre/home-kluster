@@ -4,6 +4,9 @@ metadata:
   name: metallb
   labels:
     name: metallb
+    pod-security.kubernetes.io/enforce: privileged
+    pod-security.kubernetes.io/audit: privileged
+    pod-security.kubernetes.io/warn: privileged
 ---
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
@@ -38,6 +41,7 @@ spec:
   interval: 12h
   sourceRef:
     kind: GitRepository
+    namespace: default
     name: remote-git
   path: "misc/metallb"
   prune: true
