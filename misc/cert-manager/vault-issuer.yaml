@@ -6,7 +6,7 @@ metadata:
 spec:
   vault:
     server: http://openbao.openbao:8200
-    path: pki/sign/hk-pki
+    path: pki/sign/cert-manager
     auth:
       kubernetes:
         mountPath: /v1/auth/kubernetes
