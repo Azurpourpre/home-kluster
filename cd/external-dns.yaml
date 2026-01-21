@@ -4,6 +4,7 @@ metadata:
   name: external-dns
   labels:
     name: external-dns
+    security.kubernetes.io/enforce: privileged
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
