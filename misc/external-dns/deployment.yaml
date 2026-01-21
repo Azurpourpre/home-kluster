@@ -17,11 +17,11 @@ spec:
       serviceAccountName: external-dns
       securityContext:
         fsGroup: 65534
-        # runAsUser: 65534
-        # runAsGroup: 65534
+        runAsUser: 65534
+        runAsGroup: 65534
       containers:
       - name: external-dns
-        image: registry.k8s.io/external-dns/external-dns:v0.20.0
+        image: registry.k8s.io/external-dns/external-dns:v0.19.0
         envFrom:
         - secretRef:
             name: pihole-password
@@ -34,10 +34,10 @@ spec:
         - --pihole-api-version=6
         - --pihole-server=http://pihole.home
         - --pihole-tls-skip-verify # For now, we dont have a local CA
-        # securityContext:
-        #   allowPrivilegeEscalation: false
-        #   capabilities: 
-        #     drop: ["ALL"]
-        #   runAsNonRoot: true
-        #   seccompProfile:
-        #     type: "RuntimeDefault"
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities: 
+            drop: ["ALL"]
+          runAsNonRoot: true
+          seccompProfile:
+            type: "RuntimeDefault"
