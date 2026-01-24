@@ -84,6 +84,8 @@ statefulset:
 ##
 # existingSecret: ""
 # existingSecretKey: ""
+provisioning:
+  enabled: true
 
 ## Specify the root URL of the Gitea instance
 giteaRootURL: "http://gitea-http.gitea.svc"
@@ -93,3 +95,6 @@ giteaRootURL: "http://gitea-http.gitea.svc"
 ## @param global.imageRegistry global image registry override
 ## @param global.storageClass global storage class override
 
+## Rootless setup
+image:
+  rootless: true
