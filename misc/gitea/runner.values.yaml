@@ -50,7 +50,7 @@ statefulset:
     seccompProfile:
       type: "RuntimeDefault"
     dind:
-      repository: "docker:dind-rootless"
+      image: "docker:dind-rootless"
 
     # See full example here: https://gitea.com/gitea/act_runner/src/branch/main/internal/pkg/config/config.example.yaml
     config: |
