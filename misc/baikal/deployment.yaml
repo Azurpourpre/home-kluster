@@ -35,6 +35,9 @@ spec:
           readOnly: false
           mountPath: "/var/www/baikal/config"
         securityContext:
-          runAsNonRoot: true
-          runAsUser: 65534
-          readOnlyRootFilesystem: true
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop: ["ALL"]
+            add: ["CHOWN", "SETGID", "SETUID"]
+          seccompProfile:
+            type: "RuntimeDefault"

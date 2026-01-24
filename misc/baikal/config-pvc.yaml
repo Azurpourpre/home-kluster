@@ -4,7 +4,7 @@ metadata:
   name: baikal-config-pvc
   namespace: baikal
 spec:
-  storageClassName: longhorn
+  storageClassName: longhorn-xfs
   accessModes:
     - ReadWriteOnce  
   resources: 
