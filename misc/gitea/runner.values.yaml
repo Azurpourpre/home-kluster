@@ -40,15 +40,15 @@ namespace: gitea-runner
 statefulset:
   replicas: 1
   timezone: Europe/Paris
-  securityContext: 
-    runAsNonRoot: true
-    runAsUser: 1000
-    runAsGroup: 1000
-    allowPrivilegeEscalation: false
-    capabilities:
-      drop: ["ALL"]
-    seccompProfile:
-      type: "RuntimeDefault"
+  # securityContext: 
+  #   runAsNonRoot: true
+  #   runAsUser: 1000
+  #   runAsGroup: 1000
+  #   allowPrivilegeEscalation: false
+  #   capabilities:
+  #     drop: ["ALL"]
+  #   seccompProfile:
+  #     type: "RuntimeDefault"
   
   dind:
     tag: dind-rootless
@@ -80,7 +80,7 @@ statefulset:
 ## Specify an existing token secret
 ##
 #     kubectl create secret generic gitea-actions-token --from-literal action-token=<token> -n gitea
-existingSecret: "gitea-actions-token"
+existingSecret: "gitea-actions-token"&
 existingSecretKey: "action-token"
 
 ## Specify the root URL of the Gitea instance
