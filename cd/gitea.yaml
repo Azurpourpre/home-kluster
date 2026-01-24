@@ -5,6 +5,14 @@ metadata:
   labels:
     name: gitea
 ---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: gitea-runner
+  labels:
+    name: gitea-runner
+    pod-security.kubernetes.io/enforce: privileged
+---
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:

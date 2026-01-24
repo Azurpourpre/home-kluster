@@ -36,7 +36,7 @@
 ## @param existingSecretKey Secret key
 ## @param giteaRootURL URL the act_runner registers and connect with
 enabled: true
-namespace: gitea
+namespace: gitea-runner
 statefulset:
   replicas: 1
   timezone: Europe/Paris
@@ -88,7 +88,3 @@ giteaRootURL: "http://gitea-http.gitea.svc"
 #
 ## @param global.imageRegistry global image registry override
 ## @param global.storageClass global storage class override
-
-## Rootless setup
-image:
-  rootless: true
