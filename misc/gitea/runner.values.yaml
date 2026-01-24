@@ -50,8 +50,8 @@ statefulset:
   #   seccompProfile:
   #     type: "RuntimeDefault"
   
-  dind:
-    tag: dind-rootless
+  # dind:
+  #   tag: dind-rootless
   
   actRunner:
     # See full example here: https://gitea.com/gitea/act_runner/src/branch/main/internal/pkg/config/config.example.yaml
