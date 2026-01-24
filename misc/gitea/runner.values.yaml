@@ -80,7 +80,7 @@ statefulset:
 ## Specify an existing token secret
 ##
 #     kubectl create secret generic gitea-actions-token --from-literal action-token=<token> -n gitea
-existingSecret: "gitea-actions-token"&
+existingSecret: "gitea-actions-token"
 existingSecretKey: "action-token"
 
 ## Specify the root URL of the Gitea instance
