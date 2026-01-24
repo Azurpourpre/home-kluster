@@ -2,6 +2,9 @@ namespace: gitea
 configMapGenerator:
   - name: gitea-values
     files: 
-    - values.yaml
+    - gitea.values.yaml
+  - name: gitea-runner-values
+    files: 
+    - runner.values.yaml
 generatorOptions:
   disableNameSuffixHash: true

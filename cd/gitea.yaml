@@ -45,3 +45,21 @@ spec:
   - kind: ConfigMap
     name: gitea-values
   interval: 12h
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: gitea-runner
+  namespace: gitea
+spec:
+  chart:
+    spec:
+      chart: actions
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: gitea
+  valuesFrom:
+  - kind: ConfigMap
+    name: gitea-runner-values
+  interval: 12h
