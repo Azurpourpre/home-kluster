@@ -36,6 +36,7 @@
 ## @param existingSecretKey Secret key
 ## @param giteaRootURL URL the act_runner registers and connect with
 enabled: true
+namespace: gitea
 statefulset:
   replicas: 1
   timezone: Europe/Paris
