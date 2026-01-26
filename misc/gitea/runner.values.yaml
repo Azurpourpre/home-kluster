@@ -55,10 +55,14 @@ statefulset:
     config: |
       log:
         level: debug
+      runner:
+        labels:
+        - "ubuntu-latest:docker://docker.gitea.com/runner-images:ubuntu-latest"
+        - "ubuntu-latest-slim:docker://docker.gitea.com/runner-images:ubuntu-latest-slim"
       cache:
         enabled: false
       container:
-        privileged: false
+        privileged: true
         require_docker: true
         docker_timeout: 300s
 
