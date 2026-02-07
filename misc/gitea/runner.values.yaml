@@ -40,15 +40,6 @@ namespace: gitea-runner
 statefulset:
   replicas: 1
   timezone: Europe/Paris
-  securityContext: 
-    # runAsNonRoot: true
-    # runAsUser: 1000
-    # runAsGroup: 1000
-    # allowPrivilegeEscalation: false
-    # capabilities:
-    #   drop: ["ALL"]
-    seccompProfile:
-      type: "RuntimeDefault"
   
   actRunner:
     # See full example here: https://gitea.com/gitea/act_runner/src/branch/main/internal/pkg/config/config.example.yaml
