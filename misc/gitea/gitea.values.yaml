@@ -46,7 +46,10 @@ ingress:
   annotations: 
     cert-manager.io/cluster-issuer: "vault-issuer"
     cert-manager.io/common-name: "gitea.hk.home"
-    nginx.ingress.kubernetes.io/proxy-body-size: 800m
+    nginx.ingress.kubernetes.io/proxy-body-size: 100m
+    nginx.org/client-max-body-size: "0"
+    nginx.org/proxy-connect-timeout: 600s
+    nginx.org/proxy-read-timeout: 600s
   tls:
     - hosts:
       - git.hk.home
