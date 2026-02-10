@@ -22,7 +22,7 @@ spec:
       containers:
       - name: freshrss
         image: freshrss/freshrss:latest
-        command: ["sh", "-c", "/var/www/FreshRSS/Docker/entrypoint.sh"]
+        command: ["sleep", "infinity"]
         ports:
         - containerPort: 8080
         volumeMounts:
