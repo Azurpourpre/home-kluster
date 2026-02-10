@@ -21,16 +21,20 @@ spec:
           claimName: freshrss-pvc
       containers:
       - name: freshrss
-        image: freshrss/freshrss:alpine
+        image: freshrss/freshrss:edge
         ports:
-        - containerPort: 80
+        - containerPort: 8080
         volumeMounts:
         - name: vol
           readOnly: false
           mountPath: "/var/www/FreshRSS"
         env: 
-        - name: "TZ"
+        - name: TZ
           value: "Europe/Paris"
+        - name: CRON_MIN
+          value: "5,25,45"
+        - name: LISTEN
+          value: "0.0.0.0:8080"
         securityContext:
           allowPrivilegeEscalation: false
           capabilities:
