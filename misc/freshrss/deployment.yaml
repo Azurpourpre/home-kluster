@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: freshrss
+  namespace: freshrss
+  labels:
+    app: freshrss
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: freshrss
+  template:
+    metadata:
+      labels:
+        app: freshrss
+    spec:
+      volumes:
+      - name: vol
+        persistentVolumeClaim:
+          claimName: freshrss-pvc
+      containers:
+      - name: freshrss
+        image: freshrss/freshrss:latest
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: vol
+          readOnly: false
+          mountPath: "/var/www/FreshRSS"
+        env: 
+        - name: "TZ"
+          value: "Europe/Paris"
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop: ["ALL"]
+          seccompProfile:
+            type: "RuntimeDefault"

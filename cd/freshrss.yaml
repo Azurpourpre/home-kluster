@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: freshrss
+  labels:
+    name: freshrss
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: freshrss
+  namespace: freshrss
+spec:
+  interval: 12h
+  sourceRef:
+    kind: GitRepository
+    namespace: default
+    name: remote-git
+  path: "misc/freshrss"
+  prune: true
