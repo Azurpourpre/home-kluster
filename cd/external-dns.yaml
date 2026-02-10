@@ -17,4 +17,4 @@ spec:
     namespace: default
     name: remote-git
   path: "misc/external-dns"
-  prune: trueZ
+  prune: true
