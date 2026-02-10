@@ -21,7 +21,7 @@ spec:
           claimName: freshrss-pvc
       containers:
       - name: freshrss
-        image: freshrss/freshrss:edge
+        image: freshrss/freshrss:
         ports:
         - containerPort: 8080
         volumeMounts:
@@ -35,9 +35,9 @@ spec:
           value: "5,25,45"
         - name: LISTEN
           value: "0.0.0.0:8080"
-        securityContext:
-          allowPrivilegeEscalation: false
-          capabilities:
-            drop: ["ALL"]
-          seccompProfile:
-            type: "RuntimeDefault"
+#         securityContext:
+#           allowPrivilegeEscalation: false
+#           capabilities:
+#             drop: ["ALL"]
+#           seccompProfile:
+#             type: "RuntimeDefault"
