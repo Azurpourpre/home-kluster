@@ -18,3 +18,5 @@ spec:
     name: remote-git
   path: "misc/external-dns"
   prune: true
+  decryption-provider: sops
+  decryption-secret: sops-gpg
