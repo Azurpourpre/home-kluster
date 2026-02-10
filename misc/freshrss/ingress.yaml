@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: freshrss
+  namespace: freshrss
+  annotations:
+    cert-manager.io/cluster-issuer: "vault-issuer"
+    cert-manager.io/common-name: "rss.hk.home"
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+      - rss.hk.home
+      secretName: freshrss-cert
+  rules:
+    - host: rss.hk.home
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: freshrss
+                port:
+                  number: 80

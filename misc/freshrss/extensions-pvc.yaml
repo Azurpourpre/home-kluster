@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: freshrss-extensions-pvc
+  namespace: freshrss
+spec:
+  storageClassName: longhorn-xfs
+  accessModes:
+    - ReadWriteOnce  
+  resources: 
+    requests:
+      storage: 1Gi

@@ -16,19 +16,24 @@ spec:
         app: freshrss
     spec:
       volumes:
-      - name: vol
+      - name: data-vol
         persistentVolumeClaim:
-          claimName: freshrss-pvc
+          claimName: freshrss-data-pvc
+      - name: extensions-vol
+        persistentVolumeClaim:
+          claimName: freshrss-extensions-pvc
       containers:
       - name: freshrss
         image: freshrss/freshrss:latest
-        command: ["sleep", "infinity"]
         ports:
         - containerPort: 8080
         volumeMounts:
-        - name: vol
+        - name: data-vol
           readOnly: false
-          mountPath: "/var/www/FreshRSS"
+          mountPath: "/var/www/FreshRSS/data"
+        - name: extensions-vol
+          readOnly: false
+          mountPath: "/var/www/FreshRSS/extensions"
         env: 
         - name: TZ
           value: "Europe/Paris"
