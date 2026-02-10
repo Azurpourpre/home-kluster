@@ -32,7 +32,7 @@ metadata:
   name: home-kluster
   namespace: default
 spec:
-  interval: 12h
+  interval: 5m
   sourceRef:
     kind: GitRepository
     name: remote-git
