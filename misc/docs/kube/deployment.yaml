@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: docs
+  namespace: docs
+  labels:
+    app: docs
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: docs
+  template:
+    metadata:
+      labels:
+        app: docs
+    spec:
+      containers:
+      - name: docs
+        image: git.hk.home/azur/cluster-doc/cluster-doc:latest
+        ports:
+        - containerPort: 80

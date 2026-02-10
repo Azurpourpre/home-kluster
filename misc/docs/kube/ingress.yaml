@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: docs
+  namespace: docs
+  annotations:
+    cert-manager.io/cluster-issuer: "vault-issuer"
+    cert-manager.io/common-name: "docs.hk.home"
+
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+      - docs.hk.home
+      secretName: docs-cert
+  rules:
+    - host: docs.hk.home
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: docs
+                port:
+                  number: 80

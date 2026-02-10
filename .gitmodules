@@ -1,3 +1,6 @@
 [submodule "misc/homepage"]
 	path = misc/homepage/image
 	url = https://git.hk.home/azur/homepage.git
+[submodule "misc/docs/image"]
+	path = misc/docs/image
+	url = https://git.hk.home/azur/cluster-doc.git
