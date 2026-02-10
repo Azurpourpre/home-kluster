@@ -1,4 +1,4 @@
-misc/secrets
+app-secrets/
 misc/cilium-init.yaml
 secrets.yaml
 talosconfig
