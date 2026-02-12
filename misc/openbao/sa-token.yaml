@@ -1,7 +1,0 @@
-apiVersion: v1
-kind: Secret
-metadata:
-  name: sa-token
-  annotations:
-    kubernetes.io/service-account.name: openbao-sa
-type: kubernetes.io/service-account-token
