@@ -3,7 +3,3 @@ promtail:
 
 fluent-bit:
   enabled: true
-
-grafana:
-  enabled: true
-  
