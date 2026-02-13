@@ -35,6 +35,12 @@ machine:
   nodeLabels:
     node.kubernetes.io/exclude-from-external-load-balancers:
       $patch: delete
+  logging:
+    destinations:
+    - endpoint: "tcp://127.0.0.1:12345"
+      format: "json_lines"
+      extraTags:
+        server: {{ include "talm.discovered.hostname" . }}
 
 cluster:
   network:
