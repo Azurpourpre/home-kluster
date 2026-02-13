@@ -1,4 +1,4 @@
-namespace: gitea
+namespace: grafana
 configMapGenerator:
   - name: grafana-values
     files: 
