@@ -39,10 +39,10 @@ talosctl --talosconfig=./talosconfig config endpoints <ip control plane>
 talosctl bootstrap --nodes <ip control plane> --talosconfig=./talosconfig
 helm install cilium oci://quay.io/cilium/charts/cilium --version 1.18.0 --namespace kube-system -f https://raw.githubusercontent.com/Azurpourpre/home-kluster/refs/heads/master/misc/cilium/values.yaml
 ```
-And insert secrets
-``` bash
-kubectl apply -f misc/secrets/*
-```
+
+## Init
+
+Initialize Flux PGP Private key by applying app-secrets/hk-sops.priv.yaml
 
 Initialize Openbao via portforwarding, and configure it with OpenTofu :
 ```
@@ -51,5 +51,9 @@ tofu init
 tofu apply
 ```
 
+Initialize Gitea Runner by providing secret
+```
+kubectl create secret generic -n gitea-runner gitea-actions-token --from-literal action-token=<token>
+```
 
 ## Contributing
