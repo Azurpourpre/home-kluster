@@ -19,10 +19,12 @@ adminPassword: change_me_password
 
 apiVersion: 1
 
-# datasources:
-#   - name: Loki
-#     type: loki
-#     url: http://loki.grafana.svc:3100
-#     jsonData:
-#       timeout: 60
-#       maxLines: 1000
+datasources:
+  apiVersion: 1
+  datasources:
+  - name: Loki
+    type: loki
+    url: http://loki.grafana.svc:3100
+    jsonData:
+      timeout: 60
+      maxLines: 1000
