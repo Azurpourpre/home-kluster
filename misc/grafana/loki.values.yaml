@@ -1,0 +1,9 @@
+promtail:
+  enabled: false
+
+fluent-bit:
+  enabled: true
+
+grafana:
+  enabled: true
+  
