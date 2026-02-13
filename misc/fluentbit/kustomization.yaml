@@ -1,0 +1,7 @@
+namespace: gitea
+configMapGenerator:
+  - name: fluentbit-values
+    files: 
+    - values.yaml
+generatorOptions:
+  disableNameSuffixHash: true
