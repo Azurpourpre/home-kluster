@@ -9,7 +9,7 @@ ingress:
   tls:
   - hosts:
     - monitoring.hk.home
-    secretName: baikal-cert
+    secretName: grafana-cert
 
 persistence:
   enabled: true
@@ -17,3 +17,12 @@ persistence:
 adminUser: admin
 adminPassword: change_me_password
 
+apiVersion: 1
+
+datasources:
+  - name: Loki
+    type: loki
+    url: http://loki.grafana.svc:3100
+    jsonData:
+      timeout: 60
+      maxLines: 1000

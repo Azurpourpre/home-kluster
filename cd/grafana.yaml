@@ -40,25 +40,6 @@ spec:
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: grafana
-  namespace: grafana
-spec:
-  interval: 12h
-  timeout: 5m
-  chart: 
-    spec: 
-      chart: grafana
-      reconcileStrategy: ChartVersion
-      sourceRef:
-        kind: HelmRepository
-        name: grafana-community
-  valuesFrom:
-  - kind: ConfigMap
-    name: grafana-values
----
-apiVersion: helm.toolkit.fluxcd.io/v2
-kind: HelmRelease
-metadata:
   name: loki
   namespace: grafana
 spec:
@@ -74,3 +55,22 @@ spec:
   valuesFrom:
   - kind: ConfigMap
     name: loki-values
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: grafana
+  namespace: grafana
+spec:
+  interval: 12h
+  timeout: 5m
+  chart: 
+    spec: 
+      chart: grafana
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: grafana-community
+  valuesFrom:
+  - kind: ConfigMap
+    name: grafana-values
