@@ -1,0 +1,19 @@
+ingress:
+  enabled: true
+  ingressClassName: nginx
+  annotations:
+    cert-manager.io/cluster-issuer: "vault-issuer"
+    cert-manager.io/common-name: "monitoring.hk.home"
+  hosts:
+  - monitoring.hk.home
+  tls:
+  - hosts:
+    - monitoring.hk.home
+    secretName: baikal-cert
+
+persistence:
+  enabled: true
+
+adminUser: admin
+adminPassword: change_me_password
+

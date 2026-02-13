@@ -1,0 +1,7 @@
+namespace: gitea
+configMapGenerator:
+  - name: grafana-values
+    files: 
+    - values.yaml
+generatorOptions:
+  disableNameSuffixHash: true
