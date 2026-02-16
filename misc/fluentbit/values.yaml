@@ -10,55 +10,55 @@ extraPorts:
 config:
   inputs: |
     [INPUT]
-      Name tail
-      Alias kubernetes
-      Path /var/log/containers/*.log
-      Parser containerd
-      Tag kubernetes.*
+        Name tail
+        Alias kubernetes
+        Path /var/log/containers/*.log
+        Parser containerd
+        Tag kubernetes.*
     
     [INPUT]
-      Name tcp
-      Listen 0.0.0.0
-      Port 12345
-      Format json
-      Tag talos.*
+        Name tcp
+        Listen 0.0.0.0
+        Port 12345
+        Format json
+        Tag talos.*
     
     [INPUT]
-      Name tail
-      Alias audit
-      Path /var/log/audit/kube/*.log
-      Parser audit
-      Tag audit.*
+        Name tail
+        Alias audit
+        Path /var/log/audit/kube/*.log
+        Parser audit
+        Tag audit.*
   
   filters: |
     [FILTER]
-      Name                kubernetes
-      Alias               kubernetes
-      Match               kubernetes.*
-      Kube_Tag_Prefix     kubernetes.var.log.containers.
-      Use_Kubelet         Off
-      Merge_Log           On
-      Merge_Log_Trim      On
-      Keep_Log            Off
-      K8S-Logging.Parser  Off
-      K8S-Logging.Exclude On
-      Annotations         Off
-      Labels              On
+        Name                kubernetes
+        Alias               kubernetes
+        Match               kubernetes.*
+        Kube_Tag_Prefix     kubernetes.var.log.containers.
+        Use_Kubelet         Off
+        Merge_Log           On
+        Merge_Log_Trim      On
+        Keep_Log            Off
+        K8S-Logging.Parser  Off
+        K8S-Logging.Exclude On
+        Annotations         Off
+        Labels              On
 
     [FILTER]
-      Name          modify
-      Match         kubernetes.*
-      Add           source kubernetes
-      Remove        logtag
+        Name          modify
+        Match         kubernetes.*
+        Add           source kubernetes
+        Remove        logtag
 
   outputs: |
     [OUTPUT]
-      Name loki
-      Match *
-      Host loki.grafana.svc
-      Port 3100
-      Labels job=fluentbit
-      Auto_Kubernetes_Labels on
+        Name loki
+        Match *
+        Host loki.grafana.svc
+        Port 3100
+        Labels job=fluentbit
+        Auto_Kubernetes_Labels on
 
 daemonSetVolumes:
   - name: varlog
