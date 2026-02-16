@@ -4,7 +4,7 @@ podAnnotations:
 extraPorts:
 - port: 12345
   containerPort: 12345
-  protocol: tcp
+  protocol: TCP
   name: talos
 
 config:
