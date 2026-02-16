@@ -4,6 +4,7 @@ metadata:
   name: fluentbit
   labels:
     name: fluentbit
+    pod-security.kubernetes.io/enforce: privileged
 ---
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
