@@ -1,4 +1,4 @@
-namespace: gitea
+namespace: fluentbit
 configMapGenerator:
   - name: fluentbit-values
     files: 
