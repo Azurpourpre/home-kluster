@@ -1,4 +1,4 @@
-namespace: gitea
+namespace: kube-system
 configMapGenerator:
   - name: cilium-values
     files: 
