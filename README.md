@@ -30,14 +30,14 @@ Now you boot Talos Linux on all your machines. You will have to use the schemati
 
 Once all your machines are up, generate the nodes configuration. For each machine, you have set up a ip and a name, and you have to choose a role (controleplane or worker)
 ``` bash
-talm -n <ip> -e <ip> template -t templates/<role> -i > nodes/<node name>.yaml
+talm -n <ip> -e "kube.home" template -t templates/<role> -i > nodes/<node name>.yaml
 talm apply -f nodes/<node name>.yaml -i
 ```
 Then, finish initialization
 ``` bash
 talosctl --talosconfig=./talosconfig config endpoints <ip control plane>
 talosctl bootstrap --nodes <ip control plane> --talosconfig=./talosconfig
-helm install cilium oci://quay.io/cilium/charts/cilium --version 1.18.0 --namespace kube-system -f https://raw.githubusercontent.com/Azurpourpre/home-kluster/refs/heads/master/misc/cilium/values.yaml
+helm install cilium oci://quay.io/cilium/charts/cilium --version 1.19.0 --namespace kube-system -f https://raw.githubusercontent.com/Azurpourpre/home-kluster/refs/heads/master/misc/cilium/values.yaml
 ```
 
 ## Init
@@ -45,7 +45,7 @@ helm install cilium oci://quay.io/cilium/charts/cilium --version 1.18.0 --namesp
 Initialize Flux PGP Private key by applying app-secrets/hk-sops.priv.yaml
 
 Initialize Openbao via portforwarding, and configure it with OpenTofu :
-```
+```z
 cd misc/openbao/state
 tofu init
 tofu apply

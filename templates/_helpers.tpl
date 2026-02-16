@@ -157,5 +157,5 @@ busPath: {{ .spec.busPath }}
 {{- end }}
 
 {{- define "talm.discovered.talos_version" }}
-{{- (lookup "version" "" "").items._0.spec.version }}
+{{- index (lookup "version" "" "") "items" 0 "spec" "version" }}
 {{- end }}

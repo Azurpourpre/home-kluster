@@ -14,7 +14,7 @@ machine:
     disk: {{ include "talm.discovered.system_disk_name" . | quote }}
     image: factory.talos.dev/metal-installer/{{ include "talm.discovered.schematic" . }}:{{ include "talm.discovered.talos_version" . }}
   network:
-    hostname: {{ include "talm.discovered.hostname" . | quote }}
+    # hostname: {{ include "talm.discovered.hostname" . | quote }}
     nameservers: {{ include "talm.discovered.default_resolvers" . }}
     {{- (include "talm.discovered.physical_links_info" .) | nindent 4 }}
     interfaces:
