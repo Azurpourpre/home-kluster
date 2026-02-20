@@ -55,11 +55,5 @@ bloomCompactor:
 bloomGateway:
   replicas: 0
 
-memcached:
-  limits:
-    memory: 1230Mi
-
-chunkCache:
-  allocatedMemory: 1024
-l2:
-  allocatedMemory: 1024
+chunksCache:
+  enabled: false
