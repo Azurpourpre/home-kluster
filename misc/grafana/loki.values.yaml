@@ -33,7 +33,8 @@ chunksCache:
 gateway:
   enabled: false
 resultsCache:
-  enabled: false
+  enabled: true
+  allocatedMemory: 128
       
 deploymentMode: SingleBinary
 
