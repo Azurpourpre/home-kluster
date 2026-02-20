@@ -47,7 +47,7 @@ spec:
   timeout: 5m
   chart: 
     spec: 
-      chart: loki-stack
+      chart: loki
       reconcileStrategy: ChartVersion
       sourceRef:
         kind: HelmRepository
