@@ -28,8 +28,11 @@ minio:
   enabled: false
 
 chunksCache:
-  enabled: false
+  enabled: true
+  allocatedMemory: 1024
 gateway:
+  enabled: false
+resultsCache:
   enabled: false
       
 deploymentMode: SingleBinary
