@@ -29,6 +29,8 @@ minio:
 
 chunksCache:
   enabled: false
+gateway:
+  enabled: false
       
 deploymentMode: SingleBinary
 
