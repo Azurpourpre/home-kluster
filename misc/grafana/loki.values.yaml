@@ -19,8 +19,15 @@ loki:
     volume_enabled: true
   ruler:
     enable_api: true
+  auth_enabled: false
+
+enterprise:
+  enabled: false
 
 minio:
+  enabled: false
+
+chunksCache:
   enabled: false
       
 deploymentMode: SingleBinary
@@ -54,6 +61,3 @@ bloomCompactor:
   replicas: 0
 bloomGateway:
   replicas: 0
-
-chunksCache:
-  enabled: false
