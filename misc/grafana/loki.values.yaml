@@ -54,3 +54,6 @@ bloomCompactor:
   replicas: 0
 bloomGateway:
   replicas: 0
+
+chunkCache:
+  allocatedMemory: 1024
