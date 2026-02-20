@@ -57,3 +57,5 @@ bloomGateway:
 
 chunkCache:
   allocatedMemory: 1024
+l2:
+  allocatedMemory: 1024
