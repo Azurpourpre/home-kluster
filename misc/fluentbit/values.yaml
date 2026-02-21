@@ -55,6 +55,10 @@ config:
       Annotations         Off
       Labels              On
 
+    [Filter]
+      Name modify
+      Add tag TAG
+
   outputs: |
     [OUTPUT]
       Name loki
