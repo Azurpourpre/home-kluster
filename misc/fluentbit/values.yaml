@@ -57,7 +57,8 @@ config:
 
     [Filter]
       Name modify
-      Add tag TAG
+      Match *
+      Add from TAG
 
   outputs: |
     [OUTPUT]
