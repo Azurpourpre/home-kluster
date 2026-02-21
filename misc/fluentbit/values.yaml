@@ -6,6 +6,7 @@ extraPorts:
   containerPort: 12345
   protocol: TCP
   name: talos
+  nodePort: 12345
 
 config:
   service: |
