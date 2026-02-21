@@ -37,7 +37,7 @@ machine:
       $patch: delete
   logging:
     destinations:
-    - endpoint: "tcp://fluentbit-fluent-bit.fluentbit.svc:12345"
+    - endpoint: "tcp://192.168.1.200:12345"
       format: "json_lines"
       extraTags:
         server: {{ include "talm.discovered.hostname" . }}
