@@ -6,7 +6,7 @@ extraPorts:
   containerPort: 12345
   protocol: TCP
   name: talos
-  nodePort: 12345
+
 
 config:
   service: |
@@ -87,3 +87,8 @@ daemonSetVolumes:
 daemonSetVolumeMounts:
   - name: varlog
     mountPath: /var/log
+
+service:
+  type: LoadBalancer
+  annotations: 
+    metallb.io/loadBalancerIPs: 192.168.1.200
