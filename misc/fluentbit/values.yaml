@@ -55,11 +55,6 @@ config:
       Annotations         Off
       Labels              On
 
-    [FILTER]
-      Name          modify
-      Match         *
-      Add           source ${TAG}
-
   outputs: |
     [OUTPUT]
       Name loki
