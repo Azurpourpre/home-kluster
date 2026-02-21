@@ -57,9 +57,8 @@ config:
 
     [FILTER]
       Name          modify
-      Match         kubernetes.*
-      Add           source kubernetes
-      Remove        logtag
+      Match         *
+      Add           source ${TAG}
 
   outputs: |
     [OUTPUT]
@@ -67,7 +66,7 @@ config:
       Match *
       Host loki.grafana.svc
       Port 3100
-      Labels job=fluentbit
+      Labels job=fluentbit, $sub['tag']
       Auto_Kubernetes_Labels on
 
 daemonSetVolumes:
