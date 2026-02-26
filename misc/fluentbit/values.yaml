@@ -25,27 +25,28 @@ config:
       Alias kubernetes
       Path /var/log/containers/*.log
       Parser containerd
-      Tag kubernetes.*
+      Tag kubernetes
     
     [INPUT]
       Name tcp
       Listen 0.0.0.0
       Port 12345
       Format json
-      Tag talos.*
+      Tag talos
     
     [INPUT]
       Name tail
       Alias audit
       Path /var/log/audit/kube/*.log
       Parser audit
-      Tag audit.*
+      Tag audit
+      Ignore_older true
   
   filters: |
     [FILTER]
       Name                kubernetes
       Alias               kubernetes
-      Match               kubernetes.*
+      Match               kubernetes
       Kube_Tag_Prefix     kubernetes.var.log.containers.
       Use_Kubelet         Off
       Merge_Log           On
@@ -58,26 +59,37 @@ config:
 
     [FILTER]
       Name modify
-      Match audit.*
-      Add source audit
-    
-    [FILTER]
-      Name modify
-      Match kubernetes.*
+      Match kubernetes
       Add source kubernetes
 
     [FILTER]
       Name modify
-      Match talos.*
+      Match talos
       Add source talos
+  customParsers: |
+    [PARSER]
+      Name          audit
+      Format        json
+      Time_Key      requestReceivedTimestamp
+      Time_Format   %Y-%m-%dT%H:%M:%S.%L%z
+
   outputs: |
     [OUTPUT]
       Name loki
-      Match *
+      Match_regex (talos|kubernetes)
       Host loki.grafana.svc
       Port 3100
       Labels job=fluentbit, $sub['tag']
       Auto_Kubernetes_Labels on
+
+    [OUTPUT]
+      Name http
+      Alias http
+      Match audit
+      Host falco-k8saudit-webhook.falco.svc
+      Port 9765
+      URI /k8s-audit
+      Format json
 
 daemonSetVolumes:
   - name: varlog
