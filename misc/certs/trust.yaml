@@ -17,7 +17,7 @@ apiVersion: trust.cert-manager.io/v1alpha1
 kind: Bundle
 metadata:
   name: baikal-bundle
-  namespace: baikal
+  namespace: certs
 spec:
   sources:
   - useDefaultCAs: false
