@@ -41,29 +41,6 @@ spec:
     crds:
       enabled: true
 ---
-apiVersion: helm.toolkit.fluxcd.io/v2
-kind: HelmRelease
-metadata:
-  name: trust-manager
-  namespace: cert-manager
-spec:
-  interval: 12h
-  timeout: 5m
-  chart: 
-    spec: 
-      chart: trust-manager
-      reconcileStrategy: ChartVersion
-      sourceRef:
-        kind: HelmRepository
-        name: cert-manager
-  values:
-    secretTargets:
-      enabled: true
-      authorizedSecretsAll: true
-    app:
-      trust:
-        namespace: certs
----
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
@@ -76,18 +53,4 @@ spec:
     namespace: default
     name: remote-git
   path: "misc/cert-manager"
-  prune: true
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: certificate-generation
-  namespace: certs
-spec:
-  interval: 12h
-  sourceRef:
-    kind: GitRepository
-    namespace: default
-    name: remote-git
-  path: "misc/certs"
   prune: true
