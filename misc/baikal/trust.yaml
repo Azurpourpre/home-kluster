@@ -22,15 +22,15 @@ spec:
   sources:
   - useDefaultCAs: false
   - secret:
-    namespace: default
-    name: rootCA
-    key: ca.crt
+      namespace: default
+      name: rootCA
+      key: ca.crt
   - secret:
-    name: baikal-cert
-    key: ca.crt
+      name: baikal-cert
+      key: ca.crt
   - secret:
-    name: baikal-cert
-    key: tls.crt
+      name: baikal-cert
+      key: tls.crt
   target:
     secret:
       key: tls.cert
