@@ -60,6 +60,9 @@ spec:
     secretTargets:
       enabled: true
       authorizedSecretsAll: true
+    app:
+      trust:
+        namespace: certs
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
