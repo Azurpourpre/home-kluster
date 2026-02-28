@@ -22,8 +22,7 @@ spec:
   sources:
   - useDefaultCAs: false
   - secret:
-      namespace: default
-      name: rootCA
+      name: root-ca
       key: ca.crt
   - secret:
       name: baikal-cert
