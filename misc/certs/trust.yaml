@@ -2,7 +2,7 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: baikal-cert
-  namespace: baikal
+  namespace: certs
 spec:
   commonName: calendar.hk.home
   dnsNames:
@@ -33,6 +33,3 @@ spec:
   target:
     secret:
       key: tls.cert
-      metadata:
-        name: baikal-tls
-        namespace: baikal
