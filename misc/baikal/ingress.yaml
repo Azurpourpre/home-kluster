@@ -6,6 +6,7 @@ metadata:
   annotations:
     cert-manager.io/cluster-issuer: "vault-issuer"
     cert-manager.io/common-name: "calendar.hk.home"
+    cert-manager.io/private-key-algorithm: "ed25519"
 spec:
   ingressClassName: nginx
   tls:
