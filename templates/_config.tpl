@@ -32,9 +32,11 @@ machine:
         ip: {{ .Values.floatingIP }}
       {{- end }}
     {{- end }}
+  {{- if eq .MachineType "controlplane" }}
   nodeLabels:
     node.kubernetes.io/exclude-from-external-load-balancers:
       $patch: delete
+  {{- end }}
   logging:
     destinations:
     - endpoint: "tcp://192.168.1.200:12345"
@@ -67,7 +69,7 @@ cluster:
     disabled: true
   extraManifests:
   - "https://github.com/fluxcd/flux2/releases/latest/download/install.yaml"
-  - "{{ .Values.GitRepo }}/misc/cd-init.yaml"
+  # - "{{ .Values.GitRepo }}/misc/cd-init.yaml"
   {{- end }}
 
 {{- end }}
