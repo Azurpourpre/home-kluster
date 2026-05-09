@@ -12,7 +12,7 @@ templateOptions:
   fileValues: []
   jsonValues: []
   literalValues: []
-  talosVersion: ""
+  talosVersion: "1.12.7"
   withSecrets: "secrets.yaml"
   kubernetesVersion: ""
   full: false

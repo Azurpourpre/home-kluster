@@ -5,7 +5,7 @@
 {{- else }}
 {{- $disk := "/dev/sda" }}
 {{- range (lookup "disks" "" "").items }}
-{{- if and (or .spec.wwid .spec.model) (ne .spec.size 0) }}
+{{- if and (not .spec.readonly) (not .spec.cdrom) }}
 {{- $disk = .spec.dev_path }}
 {{- break }}
 {{- end }}
@@ -40,6 +40,22 @@
 {{- end }}
 {{- end }}
 
+{{- define "talm.discovered.system_disk_nvme_id" }}
+{{- $diskName := (include "talm.discovered.system_disk_name" .) }}
+{{- $diskStablePath := "" }}
+{{- range (lookup "disks" "" "").items }}
+{{- if and (eq .spec.dev_path $diskName) (eq .spec.transport "nvme") .spec.wwid }}
+{{- $diskStablePath = (printf "/dev/disk/by-id/nvme-%s" .spec.wwid) }}
+{{- break }}
+{{- end }}
+{{- end }}
+{{- if $diskStablePath }}
+{{- $diskStablePath }}
+{{- else }}
+{{- $diskName }} # Unable to determine a stable NVMe disk path, falling back to the disk name
+{{- end }}
+{{- end }}
+
 {{- define "talm.discovered.default_addresses" }}
 {{- with (lookup "nodeaddress" "" "default") }}
 {{- toJson .spec.addresses }}
@@ -69,7 +85,7 @@
 {{- define "talm.discovered.physical_links_info" }}
 # -- Discovered interfaces:
 {{- range (lookup "links" "" "").items }}
-{{- if and .spec.busPath (regexMatch "^(eno|eth|enp|enx|ens)" .metadata.id) }}
+{{- if and .spec.busPath (regexMatch "^(eno|eth|enp|enx|ens)" (.metadata.id | toString)) }}
 # {{ .metadata.id }}:
 #   hardwareAddr:{{ .spec.hardwareAddr }}
 #   busPath: {{ .spec.busPath }}
@@ -144,9 +160,113 @@ busPath: {{ .spec.busPath }}
 
 {{- define "talm.discovered.existing_interfaces_configuration" }}
 {{- with (lookup "machineconfig" "" "v1alpha1") }}
-{{ toYaml .spec | fromYaml | dig "machine" "network" "interfaces" (list) | toYaml }}
+{{- $spec := .spec }}
+{{- $interfaces := list }}
+{{- if kindIs "string" $spec }}
+{{- $interfaces = $spec | fromYaml | dig "machine" "network" "interfaces" (list) }}
+{{- else }}
+{{- $interfaces = $spec | dig "machine" "network" "interfaces" (list) }}
+{{- end }}
+{{- if $interfaces }}
+{{- $interfaces | toYaml }}
 {{- end }}
 {{- end }}
+{{- end }}
+
+{{- /* Get bond slave interfaces for a given bond index */ -}}
+{{- define "talm.discovered.bond_slaves" -}}
+{{- $bondIndex := . -}}
+{{- $slaves := list -}}
+{{- range (lookup "links" "" "").items -}}
+{{- if and (eq .spec.slaveKind "bond") (eq (int .spec.masterIndex) (int $bondIndex)) -}}
+{{- $slaves = append $slaves .metadata.id -}}
+{{- end -}}
+{{- end -}}
+{{- toJson $slaves -}}
+{{- end -}}
+
+{{- /* Generate bond configuration from bondMaster spec */ -}}
+{{- define "talm.discovered.bond_config" -}}
+{{- $linkName := . -}}
+{{- $link := lookup "links" "" $linkName -}}
+{{- if and $link (eq $link.spec.kind "bond") -}}
+{{- $bondMaster := $link.spec.bondMaster -}}
+{{- $slaves := fromJsonArray (include "talm.discovered.bond_slaves" $link.spec.index) -}}
+bond:
+  interfaces:
+    {{- range $slaves }}
+    - {{ . }}
+    {{- end }}
+  mode: {{ $bondMaster.mode }}
+  {{- if $bondMaster.xmitHashPolicy }}
+  xmitHashPolicy: {{ $bondMaster.xmitHashPolicy }}
+  {{- end }}
+  {{- if $bondMaster.lacpRate }}
+  lacpRate: {{ $bondMaster.lacpRate }}
+  {{- end }}
+  {{- if $bondMaster.miimon }}
+  miimon: {{ $bondMaster.miimon }}
+  {{- end }}
+  {{- if $bondMaster.updelay }}
+  updelay: {{ $bondMaster.updelay }}
+  {{- end }}
+  {{- if $bondMaster.downdelay }}
+  downdelay: {{ $bondMaster.downdelay }}
+  {{- end }}
+{{- end -}}
+{{- end -}}
+
+{{- /* Check if a link is a bond interface */ -}}
+{{- define "talm.discovered.is_bond" -}}
+{{- $linkName := . -}}
+{{- $link := lookup "links" "" $linkName -}}
+{{- if and $link (eq $link.spec.kind "bond") -}}
+true
+{{- end -}}
+{{- end -}}
+
+{{- /* Check if a link is a vlan interface */ -}}
+{{- define "talm.discovered.is_vlan" -}}
+{{- $linkName := . -}}
+{{- $link := lookup "links" "" $linkName -}}
+{{- if and $link (eq $link.spec.kind "vlan") -}}
+true
+{{- end -}}
+{{- end -}}
+
+{{- /* Get parent link name by linkIndex */ -}}
+{{- define "talm.discovered.parent_link_name" -}}
+{{- $linkName := . -}}
+{{- $link := lookup "links" "" $linkName -}}
+{{- if and $link $link.spec.linkIndex -}}
+{{- $parentIndex := $link.spec.linkIndex -}}
+{{- range (lookup "links" "" "").items -}}
+{{- if eq (int .spec.index) (int $parentIndex) -}}
+{{- .metadata.id -}}
+{{- end -}}
+{{- end -}}
+{{- end -}}
+{{- end -}}
+
+{{- /* Get vlan ID from link */ -}}
+{{- define "talm.discovered.vlan_id" -}}
+{{- $linkName := . -}}
+{{- $link := lookup "links" "" $linkName -}}
+{{- if and $link $link.spec.vlan -}}
+{{- $link.spec.vlan.vlanID -}}
+{{- end -}}
+{{- end -}}
+
+{{- /* Generate vlan configuration */ -}}
+{{- define "talm.discovered.vlan_config" -}}
+{{- $linkName := . -}}
+{{- $link := lookup "links" "" $linkName -}}
+{{- if and $link (eq $link.spec.kind "vlan") -}}
+vlans:
+  - vlanId: {{ $link.spec.vlan.vlanID }}
+{{- end -}}
+{{- end -}}
+
 
 {{- define "talm.discovered.schematic" }}
 {{- range (lookup "extensions" "" "").items }}
