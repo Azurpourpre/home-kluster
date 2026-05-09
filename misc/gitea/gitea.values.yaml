@@ -45,7 +45,7 @@ ingress:
   className: "nginx"
   annotations: 
     cert-manager.io/cluster-issuer: "vault-issuer"
-    cert-manager.io/common-name: "gitea.hk.home"
+    cert-manager.io/common-name: "git.hk.home"
     nginx.ingress.kubernetes.io/proxy-body-size: 100m
     nginx.org/client-max-body-size: "0"
     nginx.org/proxy-connect-timeout: 600s
