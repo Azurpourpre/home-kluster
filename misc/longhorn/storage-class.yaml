@@ -12,3 +12,9 @@ parameters:
   staleReplicaTimeout: "2880"
   fromBackup: ""
   fsType: "xfs"
+  recurringJobsSelector: '[
+    {
+      "name":"backup",
+      "isGroup":false
+    }
+  ]'
